@@ -21,8 +21,8 @@ CITIES = {
 }
 
 # Диапазон дат для прогноза
-START_DATE = "2025-07-02"
-END_DATE = "2025-07-03"
+START_DATE = "2025-06-01"
+END_DATE = "2025-07-01"
 
 # Создаем папку tmp (если не существует)
 os.makedirs("tmp", exist_ok=True)
@@ -52,11 +52,11 @@ def main():
             # Обработка данных с помощью enumerate
             for i, time in enumerate(data["hourly"]["time"]):
                 weather_data.append({
-                    "Date": time,
-                    "City": city,
-                    "Temperature": data["hourly"]["temperature_2m"][i],
-                    "Rain": data["hourly"]["rain"][i],
-                    "Update_at ": datetime.now().strftime("%Y-%m-%d %H:%M")
+                    "date": datetime.strptime(time, "%Y-%m-%dT%H:%M"),
+                    "city": city,
+                    "temperature": data["hourly"]["temperature_2m"][i],
+                    "rain": data["hourly"]["rain"][i],
+                    "update_at": datetime.now().strftime("%Y-%m-%d %H:%M")
                 })
                 
         except requests.exceptions.RequestException as e:
